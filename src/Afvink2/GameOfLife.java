@@ -9,64 +9,69 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.lang.reflect.Array;
 
 public class GameOfLife extends JFrame implements ActionListener {
-    static int[][] array = new int[10][10];
+    private int[][] array = new int[10][10];
     private JPanel panel;
-    private JButton button;
 
     public static void main(String[] args) {
-
         GameOfLife frame = new GameOfLife();
         frame.setSize(1000, 1000);
         frame.makeGUI();
         frame.setVisible(true);
-
     }
 
     public void makeGUI() {
+        /**
+         * Functie die de GUI maakt
+         */
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         Container window = getContentPane();
         window.setLayout(new FlowLayout());
 
-        button = new JButton("Klik hier");
+        // aanmaken button
+        JButton button = new JButton("Start");
         button.addActionListener(this);
         window.add(button);
 
+        // Declareren van de zwarte vlakken
+        array[1][0] = 1;
+        array[2][1] = 1;
+        array[2][2] = 1;
+        array[1][2] = 1;
+        array[0][2] = 1;
+
+        // aanmaken panel
         panel = new JPanel();
-        panel.setPreferredSize(new Dimension(550, 550));
+        panel.setPreferredSize(new Dimension(500, 500));
         panel.setBackground(Color.WHITE);
         window.add(panel);
-
-
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        Graphics tekenveld = panel.getGraphics();
+        /**
+         * Functie die met de gedeclareerde waarden de Calc functie uitvoert na het klikken van de START-button.
+         */
+        try {
+            Graphics tekenveld = panel.getGraphics();
 
-        array[0][0] = 1;
-//        tekenveld.fillRect(0*50,0*50,50,50);
-//        tekenveld.fillRect(1*50,0*50,50,50);
-        array[1][3] = 1;
-//        tekenveld.fillRect(1*50,3*50,50,50);
-        array[1][9] = 1;
-//        tekenveld.fillRect(1*50,9*50,50,50);
-        array[9][1] = 1;
-//        tekenveld.fillRect(9*50,1*50,50,50);
-        array[5][5] = 1;
-//        tekenveld.fillRect(5*50,5*50,50,50);
-        for (int i = 0; i < 10; i++) {
-            for (int j = 0; j < 10; j++) {
-                if (array[i][j] == 1) {
-                    tekenveld.setColor(Color.BLACK);
-                    tekenveld.fillRect(i * 50, j * 50, 50, 50);
-//                    array = new Calc(array);
-//                    Calc calc = new Calc();
-
+            // for loop die de vlakken wit maakt als ze 0 zijn en zwart maakt als ze 1 zijn
+            for (int i = 0; i < 10; i++) {
+                for (int j = 0; j < 10; j++) {
+                    if (array[i][j] == 1) {
+                        tekenveld.setColor(Color.BLACK);
+                        tekenveld.fillRect(i * 50, j * 50, 50, 50);
+                    } else if (array[i][j] == 0) {
+                        tekenveld.setColor(Color.WHITE);
+                        tekenveld.fillRect(i * 50, j * 50, 50, 50);
+                    }
                 }
             }
+            Calc nextcalc = new Calc();
+            array = nextcalc.GetCalc(array);
+        } catch (Exception event) {
+            System.out.println("Fout bij kleur");
         }
     }
 }
