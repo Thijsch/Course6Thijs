@@ -57,11 +57,14 @@ public class GameOfLife extends JFrame implements ActionListener {
 //        tekenveld.fillRect(9*50,1*50,50,50);
         array[5][5] = 1;
 //        tekenveld.fillRect(5*50,5*50,50,50);
-        for (int i = 0; i < 11; i++) {
-            for (int j = 0; j < 11; j++) {
+        for (int i = 0; i < 10; i++) {
+            for (int j = 0; j < 10; j++) {
                 if (array[i][j] == 1) {
                     tekenveld.setColor(Color.BLACK);
                     tekenveld.fillRect(i * 50, j * 50, 50, 50);
+//                    array = new Calc(array);
+//                    Calc calc = new Calc();
+
                 }
             }
         }
