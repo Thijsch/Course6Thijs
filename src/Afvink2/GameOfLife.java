@@ -51,7 +51,8 @@ public class GameOfLife extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         /**
-         * Functie die met de gedeclareerde waarden de Calc functie uitvoert na het klikken van de START-button.
+         * Functie die met de gedeclareerde waarden de Calc functie
+         * uitvoert na het klikken van de START-button.
          */
         try {
             Graphics tekenveld = panel.getGraphics();
